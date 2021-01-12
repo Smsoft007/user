@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<%- include('head') %>
+
+<body class="theme-dark">
+  <div id="preloader">
+    <div class="spinner-border color-highlight" role="status"></div>
+  </div>
+  <div id="page">
+    <div class="header header-fixed header-logo-center">
+      <a href="/" class="header-title">Golden Duck</a>
+      <a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-chevron-left"></i></a>
+      <a href="#" data-toggle-theme class="header-icon header-icon-3 show-on-theme-dark"><i class="fas fa-sun"></i></a>
+      <a href="#" data-toggle-theme class="header-icon header-icon-3 show-on-theme-light"><i class="fas fa-moon"></i></a>
+    </div>
+    <div class="page-content sign-page">
+      <div data-card-height="cover" class="card mb-0" style="background-image:url(images/signbg.jpg)">
+        <div class="card-center">
+          <div class="text-center">
+            <h1 class="font-40 color-white"><%=LANG['LANG182'][NUM]%></h1>
+            <p class="boxed-text-xl color-white opacity-50 pt-3 font-15">
+              <%=LANG['LANG121'][NUM]%>
+            </p>
+          </div>
+          <div class="content px-4">
+            <div class="input-style input-light has-icon input-style-1 input-required">
+              <i class="input-icon far fa-envelope"></i>
+              <span><%=LANG['LANG186'][NUM]%></span>
+              <em>(required)</em>
+              <input type="text" placeholder="<%=LANG['LANG186'][NUM]%>" class="font-16" id="RAN_NUM">
+            </div>
+            <div class="input-style input-light has-icon input-style-1 input-required">
+              <i class="input-icon fa fa-user"></i>
+              <span><%=LANG['LANG184'][NUM]%></span>
+              <em>(required)</em>
+              <input type="password" placeholder="<%=LANG['LANG184'][NUM]%>" class="font-16" id="D_NEW_PASS">
+            </div>
+            <div class="input-style input-light has-icon input-style-1 input-required">
+              <i class="input-icon fa fa-user"></i>
+              <span><%=LANG['LANG185'][NUM]%></span>
+              <em>(required)</em>
+              <input type="password" placeholder="<%=LANG['LANG185'][NUM]%>" class="font-16" id="D_NEW_PASS_CH">
+            </div>
+            <a href="#" class="btn btn-full btn-l font-600 font-16 gradient-highlight mt-4 rounded-s" onclick="startChangePwd()"><%=LANG['LANG182'][NUM]%></a>
+            <a href="/signin" class="btn btn-icon text-left btn-full btn-l font-600 font-16 bg-phone mt-2 rounded-s"><i class="fas fa-user text-center pt-1"></i><%=LANG['LANG123'][NUM]%></a>
+            <a href="/signup" class="btn btn-icon text-left btn-full btn-l font-600 font-16 bg-facebook mt-2 rounded-s"><i class="fas fa-user-plus text-center pt-1"></i><%=LANG['LANG38'][NUM]%></a>
+          </div>
+        </div>
+        <div class="card-overlay bg-black opacity-60"></div>
+      </div>
+    </div>
+</body>
+
+<script>
+  async function startChangePwd() {
+
+    var Param = {}
+    Param['RAN_NUM'] = $("#RAN_NUM").val()
+    Param['D_NEW_PASS'] = $("#D_NEW_PASS").val()
+    var PW_KEY = "<%=PW_KEY%>"
+    if (PW_KEY == "") {
+      alert("잘못된 접속 경로입니다.")
+      return
+    }
+    Param['PW_KEY'] = PW_KEY
+    if (Param['D_NEW_PASS'] != $("#D_NEW_PASS_CH").val()) {
+      alert("<%=LANG['LANG191'][NUM]%>")
+      return
+    }
+    var valResult = commonLib.objValidate(Param)
+    if (valResult) {
+      alert("<%=LANG['LANG192'][NUM]%>")
+      return
+    }
+    var val = await reqApi({
+      URL: 'chpwd',
+      PARAM: Param
+    })
+    if (val.CHPWD != null) {
+      if (val.CHPWD.RESULT == 0) {
+        alert("<%=LANG['LANG194'][NUM]%>")
+        location.href = '/front/signin'
+      } else if (val.CHPWD.RESULT == 1) {
+        alert("<%=LANG['LANG233'][NUM]%>")
+        location.href = '/front/signin'
+      } else if (val.CHPWD.RESULT == 2) {
+        alert("<%=LANG['LANG233'][NUM]%>")
+        location.href = '/front/signin'
+      } else {
+        alert("<%=LANG['LANG200'][NUM]%>")
+      }
+    }
+  }
+</script>

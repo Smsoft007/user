@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<%- include('head') %>
+<link rel="stylesheet" href="/jstree-bootstrap-theme-master/dist/themes/proton/style.css" />
+
+<body class="theme-dark">
+
+  <div id="preloader">
+    <div class="spinner-border color-highlight" role="status"></div>
+  </div>
+
+  <div id="page">
+
+    <%- include('appHeader') %>
+
+    <div class="page-title-clear"></div>
+
+    <div class="page-content">
+
+      <div class="content mt-0 mb-2">
+        <div class="search-box search-dark shadow-xl border-0 bg-theme rounded-sm bottom-0">
+          <i class="fa fa-search"></i>
+          <input type="text" class="border-0" placeholder="Search here.." onkeyup="findNode(this)">
+        </div>
+        <div class="row mt-1 mb-0">
+          <div class="col-6">
+            <a class="btn btn-xxs btn-full rounded-xs text-uppercase font-900 shadow-s bg-dark-dark" onclick="doNode(false)"><i class="fas fa-minus"></i> 접기</a>
+          </div>
+          <div class="col-6">
+            <a class="btn btn-xxs btn-full rounded-xs text-uppercase font-900 shadow-s bg-dark-dark" onclick="doNode(true)"><i class="fas fa-plus"></i> 펴기</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-style p-3 menuTreebox">
+        <div id="menuTree">
+        </div><!-- easy-tree -->
+      </div>
+
+    </div>
+  </div>
+</body>
+<script>
+  var opendNodes = []
+  var treeInstance;
+  var to = false;
+  var allIds;
+  var $treeView
+  $(document).ready(() => {
+    reqApi({
+      URL: 'getTreeView'
+    }).then(data => {
+      $treeView = $("#menuTree")
+      $treeView.jstree({
+        core: {
+          data: data.treeData,
+          'themes': {
+            'name': 'proton',
+            'responsive': true
+          }
+        },
+        plugins: ["search"],
+        "search": {
+          // "case_sensitive": false,
+          "show_only_matches": true
+        }
+      }).bind('select_node.jstree', function(event, data) {
+        if (opendNodes.indexOf(data.node.id) == -1) {
+          opendNodes.push(data.node.id)
+          data.instance.open_node(data.node.id)
+        } else {
+          opendNodes.splice(opendNodes.indexOf(data.node.id), 1)
+          data.instance.close_node(data.node.id)
+        }
+      }).bind('loaded.jstree', function(event, data) {
+        treeInstance = data.instance
+        allIds = treeInstance._model.data["#"].children
+        treeInstance.close_all()
+      })
+      $treeView.off('dblclick')
+    })
+    // var resData = [{
+    //     'text': 'Root node 2',
+    //     "icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png",
+    //     'state': {
+    //       'opened': true
+    //     },
+    //     'children': [{
+    //         'text': 'Child 1'
+    //       },
+    //       'Child 2'
+    //     ]
+    //   },
+    //   {
+    //     'text': 'Root node 2',
+    //     "icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png",
+    //     'state': {
+    //       'opened': true
+    //     },
+    //     'children': [{
+    //         'text': 'Child 1'
+    //       },
+    //       'Child 2'
+    //     ]
+    //   }
+    // ]
+  })
+
+  function findNode(inputVal) {
+
+    if (to) {
+      clearTimeout(to);
+    }
+    to = setTimeout(function() {
+      var v = $(inputVal).val();
+      treeInstance.search(v)
+    }, 250);
+  }
+
+  function doNode(open) {
+    if (open) {
+      opendNodes = allIds
+      treeInstance.open_all();
+    } else {
+      opendNodes = []
+      treeInstance.close_all()
+    }
+  }
+</script>

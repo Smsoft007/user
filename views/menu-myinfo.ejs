@@ -1,0 +1,36 @@
+<div class="menu-title">
+    <h1 class="font-24">나의 정보</h1>
+    <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+</div>
+<div class="content mb-0 mt-0">
+    <div class="input-style has-icon input-style-1">
+        <i class="input-icon fa fa-user font-11"></i>
+        <span><%=LANG["LANG119"][NUM]%></span>
+        <input type="name" value="<%=MY_INFO.D_UID%>" readonly>
+    </div>
+    <div class="input-style has-icon input-style-1 input-required">
+        <i class="input-icon fa fa-at"></i>
+        <span><%=LANG["LANG120"][NUM]%></span>
+        <em>(required)</em>
+        <input type="email" value="<%=MY_INFO.D_EMAIL%>">
+    </div>
+    <div class="row mb-0">
+      <div class="col-3">
+        <div class="input-style input-light input-style-1 input-required">
+          <input type="name" value="82" readonly>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="input-style input-light input-style-1 input-required">
+          <span><%=LANG["LANG180"][NUM]%></span>
+          <input type="number" value="<%=MY_INFO.D_HP%>" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="input-style has-icon input-style-1 input-required">
+        <i class="input-icon fas fa-users"></i>
+        <span><%=LANG["LANG181"][NUM]%></span>
+        <input type="name" value="<%=MY_INFO.P_UID%>" readonly>
+    </div>
+    <!-- <a href="#" class="btn btn-full btn-m shadow-l rounded-s font-600 bg-blue-dark mt-4">Save</a> -->
+</div>

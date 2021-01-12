@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta name="_csrf" content="<%= csrfToken %>" />
+  <meta name="_publicKey" content="<%= publicKey %>" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <title>Cowit</title>
+  <link rel="stylesheet" type="text/css" href="/styles/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/styles/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/fonts/css/fontawesome-all.min.css">
+  <link rel="manifest" href="/views/_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+  <link rel="apple-touch-icon" sizes="180x180" href="/app/icons/icon-192x192.png">
+  <link rel="shortcut icon" sizes="180x180" href="/app/icons/icon-192x192.png">
+
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cryptico/0.0.1343522940/cryptico.min.js"></script>
+<script type="text/javascript" src="/scripts/jquery.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="/Tree-Plugin-jQuery-jsTree/src/jstree.js" charset="utf-8"></script>
+<script type="text/javascript" src="/Tree-Plugin-jQuery-jsTree/src/jstree.search.js" charset="utf-8"></script>
+
+<script type="text/javascript" src="/scripts/custom.js?v=2"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/commonLib.js?v=1"></script>
+<!-- <script>
+  const socket = io();
+  socket.on('INSERTCOIN', function(data) {
+    const obj = JSON.parse(data.message);
+    commonLib.bindValue(obj)
+    var audio = new Audio('/config/' + obj['GUBUN'] + '_INPUT_KR.mp3')
+    audio.volume = 0.05;
+    audio.play();
+    $("#GUBUN_1").text(obj['GUBUN'])
+    $('#coin-noti').showMenu();
+  });
+  socket.on('duplicate-login-detection', function(data) {
+    console.log("gd");
+  });
+  var ADDR = '<%=(LOGIN)?MY_INFO.ETH_ADDR:""%>'
+  setInterval(async () => {
+    startCheckAmount()
+  }, 1000 * 60 * 3)
+  async function startCheckAmount() {
+    if (ADDR != "") {
+      var r = await axios({
+        method: 'GET',
+        url: 'https://api.etherscan.io/api?module=account&action=balance&address=' + ADDR + '&tag=latest&apikey=YourApiKeyToken',
+        transformResponse: [data => {
+          return data;
+        }],
+        error: (req, status, error) => {
+          console.log("ERROR");
+        }
+      })
+      var balance = JSON.parse(r.data).result / 1000000000000000000
+      if (balance > 0) {
+        this.reqApi({
+          URL: 'autoSendEth'
+        })
+      }
+    }
+  }
+</script> -->

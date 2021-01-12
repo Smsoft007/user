@@ -1,0 +1,141 @@
+<div class="card rounded-0 bghj-03" data-card-height="150">
+  <div class="card-top">
+    <a href="#" class="close-menu float-right mr-2 text-center mt-3 icon-40 notch-clear"><i class="fa fa-times color-white"></i></a>
+  </div>
+  <div class="card-bottom">
+    <img src="/views/images/flags/South-Korea.png" alt="" height="30px" class="pl-3 mb-n1">
+    <h1 class="color-white pl-3 mb-n1 font-20"><%=LANG['LANG159'][NUM]%> : <%=MY_INFO.D_UID%></h1>
+    <p class="mb-2 pl-3 font-12 color-white"><%=LANG['LANG160'][NUM]%>
+      <a class="float-right btn btn-xxs mb-3 rounded-xs text-uppercase font-600 shadow-s bg-green-dark mr-3" onclick="logout()">Logout</a>
+    </p>
+  </div>
+  <div class="card-overlay bg-gradient"></div>
+</div>
+
+<div class="mt-4"></div>
+
+<h6 class="menu-divider mt-4"><%=LANG['LANG161'][NUM]%></h6>
+<div class="list-group list-custom-small list-menu">
+  <a id="nav-components" data-menu="menu-myinfo">
+    <i class="fa fa-user gradient-blue color-white"></i>
+    <span><%=LANG['LANG162'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-pages" data-menu="menu-withdrawaddress">
+    <i class="fas fa-wallet gradient-pink color-white"></i>
+    <span><%=LANG['LANG163'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-pages" data-menu="menu-passchange">
+    <i class="fas fa-shield-alt gradient-dark color-white"></i>
+    <span><%=LANG['LANG164'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <!-- <a id="nav-pages" data-menu="menu-passchange">
+        <i class="fas fa-shield-alt gradient-dark color-white"></i>
+        <span>보안관리</span>
+        <i class="fa fa-angle-right"></i>
+    </a> -->
+  <a id="nav-pages" href="/orgchart2">
+    <i class="fas fa-project-diagram gradient-mint color-white"></i>
+    <span><%=LANG['LANG165'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-pages" href="/orgchart">
+    <i class="fas fa-project-diagram gradient-brown color-white"></i>
+    <span><%=LANG['LANG166'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+</div>
+
+<h6 class="menu-divider mt-4">MENU</h6>
+<div class="list-group list-custom-small list-menu">
+  <a id="nav-welcome" href="/notice">
+    <i class="fas fa-bullhorn gradient-red color-white"></i>
+    <span><%=LANG['LANG167'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-homepages" href="/company-info">
+    <i class="fas fa-award gradient-green color-white"></i>
+    <span>Golden Duck Egg</span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-media" href="/farmer">
+    <i class="fas fa-user-cog gradient-magenta color-white"></i>
+    <span><%=LANG['LANG168'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="" href="/farmerpurchase">
+    <i class="fas fa-user-edit gradient-dark color-white"></i>
+    <span><%=LANG['LANG169'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-contact" data-menu="menu-cart-item">
+    <i class="fas fa-shopping-basket gradient-teal color-white"></i>
+    <span><%=LANG['LANG170'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-contact" href="/list">
+    <i class="fas fa-bookmark gradient-orange color-white"></i>
+    <span><%=LANG['LANG171'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-contact" href="/depositlist">
+    <i class="fas fa-clipboard gradient-yellow color-white"></i>
+    <span><%=LANG['LANG172'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-contact" data-menu="menu-withdrawal">
+    <i class="far fa-credit-card gradient-mint color-white"></i>
+    <span><%=LANG['LANG136'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-contact" href="/withdrawallist">
+    <i class="fas fa-briefcase gradient-gray color-white"></i>
+    <span><%=LANG['LANG173'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <!-- <a id="nav-contact" href="#">
+    <i class="fa fa-envelope gradient-dark color-white"></i>
+    <span>전송</span>
+    <i class="fa fa-angle-right"></i>
+  </a> -->
+  <a id="nav-contact" href="/bonuslist">
+    <i class="fas fa-cocktail gradient-pink color-white"></i>
+    <span><%=LANG['LANG174'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a id="nav-contact" href="#">
+    <i class="far fa-building gradient-red color-white"></i>
+    <span><%=LANG['LANG175'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+</div>
+
+<h6 class="menu-divider mt-4">settings</h6>
+<div class="list-group list-custom-small list-menu">
+  <a id="nav-contact" data-menu="menu-langChange">
+    <i class="fa fa-globe gradient-highlight color-white"></i>
+    <span><%=LANG['LANG177'][NUM]%></span>
+    <i class="fa fa-angle-right"></i>
+  </a>
+  <a href="#" data-toggle-theme data-trigger-switch="switch-dark-mode">
+    <i class="fa fa-moon gradient-dark color-white"></i>
+    <span><%=LANG['LANG178'][NUM]%></span>
+    <div class="custom-control scale-switch ios-switch highlight-switch switch-s">
+      <input type="checkbox" class="ios-input" id="switch-22">
+      <label class="custom-control-label" for="switch-1"></label>
+    </div>
+  </a>
+</div>
+
+
+<script>
+  function logout() {
+    reqApi({
+      URL: 'logout',
+    })
+    alert("<%=LANG['LANG179'][NUM]%>")
+    location.href = '/'
+  }
+</script>

@@ -1,0 +1,333 @@
+<div class="header header-auto-show header-fixed header-logo-center">
+  <a href="/index" class="header-title">Cowit</a>
+  <a href="#" data-menu="menu-main" class="header-icon header-icon-1"><i class="fas fa-bars"></i></a>
+  <a href="#" data-toggle-theme class="header-icon header-icon-4 show-on-theme-dark"><i class="fas fa-sun"></i></a>
+  <a href="#" data-toggle-theme class="header-icon header-icon-4 show-on-theme-light"><i class="fas fa-moon"></i></a>
+  <a href="#" data-menu="menu-share" class="header-icon header-icon-3"><i class="fas fa-share-alt"></i></a>
+</div>
+
+<div id="footer-bar" class="footer-bar-6">
+  <a data-menu="menu-charge"><i class="fas fa-qrcode"></i><span><%=LANG['LANG0'][NUM]%></span></a>
+  <a data-menu="menu-cart-item"><i class="fas fa-shopping-basket"></i><span><%=LANG['LANG1'][NUM]%></span></a>
+  <a href="/index" class="circle-nav active-nav"><i class="fa fa-home"></i><span><%=LANG['LANG2'][NUM]%></span></a>
+  <a href="/farmer"><i class="fas fa-warehouse"></i><span><%=LANG['LANG3'][NUM]%></span></a>
+  <a data-menu="menu-main"><i class="fa fa-bars"></i><span><%=LANG['LANG4'][NUM]%></span></a>
+</div>
+
+<div class="page-title page-title-fixed">
+  <div>
+    <h1 class="font-16 color-highlight mb-n3" onclick="openPop()"><%=LANG['LANG2'][NUM]%></h1>
+    <h1><%=PAGETITLE%></h1>
+  </div>
+  <a href="#" class="page-title-icon shadow-xl bg-theme color-theme" data-menu="menu-share"><i class="fa fa-share-alt"></i></a>
+  <a href="#" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-light" data-toggle-theme><i class="fa fa-moon"></i></a>
+  <a href="#" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-dark" data-toggle-theme><i class="fa fa-lightbulb color-yellow-dark"></i></a>
+  <a href="#" class="page-title-icon shadow-xl bg-theme color-theme" data-menu="menu-main"><i class="fa fa-bars"></i></a>
+</div>
+<div id="menu-main" class="menu menu-box-left rounded-0" data-menu-load="/menu-main" data-menu-width="280" data-menu-active="nav-welcome"></div>
+<div id="menu-share" class="menu menu-box-bottom rounded-m bg-theme" data-menu-load="/menu-share" data-menu-height="265"></div>
+<div id="menu-colors" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="480"></div>
+<div id="menu-langChange" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="365" data-menu-effect="menu-over" data-menu-load="/menu-langChange"></div>
+<div id="menu-myinfo" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="410" data-menu-effect="menu-over" data-menu-load="/menu-myinfo"></div>
+<div id="menu-withdrawaddress" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="600" data-menu-effect="menu-over" data-menu-load="/menu-withdrawaddress"></div>
+<div id="menu-passchange" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="445" data-menu-effect="menu-over" data-menu-load="/menu-passchange"></div>
+<div id="menu-withdrawal" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="580" data-menu-effect="menu-over" data-menu-load="/menu-withdrawal"></div>
+
+<div id="menu-inviteqr" class="menu menu-box-bottom rounded-m bg-theme" data-menu-load="/menu-inviteqr" data-menu-height="460"></div>
+
+
+<div id="menu-charge" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="530">
+  <div class="menu-title">
+    <h1 class="font-800">USD <%=LANG['LANG0'][NUM]%></h1>
+    <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+  </div>
+
+  <div class="content">
+
+    <div class="input-style input-style-2">
+      <span class="input-style-1-active bg-"><%=LANG['LANG7'][NUM]%></span>
+      <select id="selecTedCoin1" onchange="changeCoin2(this)">
+        <!-- <option value="0">ETH</option>
+        <option value="1">USDTB</option>
+        <option value="2">BTC</option> -->
+      </select>
+    </div>
+
+    <div class="divider mt-2 mb-3"></div>
+
+    <div class="d-flex">
+      <div class="bg-white p-1">
+        <img class="" width="80" id="qrcode">
+      </div>
+      <div class="w-100 ml-3 pt-1">
+        <h4 class="font-500"><%=LANG['LANG6'][NUM]%> : $<data-tag id="CRATE"></data-tag>
+        </h4>
+        <p><%=LANG['LANG8'][NUM]%></p>
+      </div>
+    </div>
+    <span id="mySpan"></span>
+    <div class="mb-2 mt-2">
+      <p class="mb-0"><%=LANG['LANG9'][NUM]%></p>
+      <h6 class="break-word">
+        <data-tag id="ADDRESS"></data-tag>
+      </h6>
+      <a class="btn btn-xxs mb-3 rounded-xs text-uppercase font-900 shadow-s bg-dark-dark" onclick="copyTextInModal()"><%=LANG['LANG10'][NUM]%></a>
+    </div>
+
+    <a href="#" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s"><%=LANG['LANG5'][NUM]%></a>
+    <a href="#" class="close-menu btn btn-full bg-dark-dark font-13 btn-m font-600 mt-3 rounded-s"><%=LANG['LANG11'][NUM]%></a>
+  </div>
+</div>
+<div id="menu-cart-item" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="420">
+  <div class="menu-title">
+    <h1 class="font-800"><%=LANG['LANG12'][NUM]%></h1>
+    <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+  </div>
+
+  <div class="content">
+    <div class="divider mt-n2"></div>
+
+    <div class="d-flex mb-4">
+      <div>
+        <img src="images/goldenegg2.jpg" class="rounded-sm" width="80">
+      </div>
+      <div class="w-100 ml-3 pt-1">
+        <h6 class="font-500 font-14 pb-2">GoldenEgg <data-tag id="P_NAME"></data-tag>
+        </h6>
+        <h4>$ <data-tag id="G_PRICE1"></data-tag> ~ $ <data-tag id="G_PRICE2"></data-tag>
+        </h4>
+        <h4>ROUND : <%=MACTIME.S_ALLCNT%></h4>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="row mb-0">
+      <div class="col-6">
+        <div class="input-style input-style-2">
+          <span class="input-style-1-active color-highlight font-16"><%=LANG['LANG13'][NUM]%></span>
+          <input class="form-control font-16" type="number" placeholder="1" value="1" id="D_QTY">
+        </div>
+      </div>
+      <!-- <div class="col-4">
+        <div class="input-style input-style-2">
+          <span class="input-style-1-active font-14">farm</span>
+          <em><i class="fa fa-angle-down"></i></em>
+          <select class="form-control font-16">
+            <option value="default" selected>1 평</option>
+            <option value="a">5 평</option>
+            <option value="b">10 평</option>
+            <option value="c">20 평</option>
+          </select>
+        </div>
+      </div> -->
+      <div class="col-6">
+        <div class="input-style input-style-2">
+          <span class="input-style-1-active font-16"><%=LANG['LANG20'][NUM]%></span>
+          <em><i class="fa fa-angle-down"></i></em>
+          <select class="form-control font-16" id="LEVEL" onchange="changeLev(this)">
+            <option value="10"><%=LANG['LANG14'][NUM]%></option>
+            <option value="20"><%=LANG['LANG15'][NUM]%></option>
+            <option value="30"><%=LANG['LANG15A'][NUM]%></option>
+            <option value="40"><%=LANG['LANG16'][NUM]%></option>
+            <option value="50"><%=LANG['LANG17'][NUM]%></option>
+            <option value="60"><%=LANG['LANG18'][NUM]%></option>
+            <option value="70"><%=LANG['LANG19'][NUM]%></option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <a class="btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s" onclick="reqBuy()"><%=LANG['LANG12'][NUM]%></a>
+  </div>
+</div>
+<div style="display:none" id="btDummy">
+</div>
+<div id="coin-noti" class="menu menu-box-modal bg-green-dark rounded-m" data-menu-height="310" data-menu-width="350">
+  <h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
+  <h1 class="text-center mt-3 font-700 color-white">
+    <data-tag id="GUBUN"></data-tag><%=LANG['LANG21'][NUM]%>
+  </h1>
+  <p class="boxed-text-l color-white opacity-70">
+    <data-tag id="QTY"></data-tag> QTY<br>
+    <data-tag id="RATE"></data-tag><br>
+    <data-tag id="M_AMOUNT"></data-tag> USD<br>
+    <data-tag id="SADDR"></data-tag><br>
+    <data-tag id="GUBUN_1"></data-tag> <%=LANG['LANG22'][NUM]%><br>
+  </p>
+  <a href="#" class="btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black" onclick="closePop('coin-noti')"><%=LANG['LANG24'][NUM]%></a>
+</div>
+<div id="menu-success-2" class="menu menu-box-modal bg-green-dark rounded-m" data-menu-height="310" data-menu-width="350">
+  <h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
+  <h1 class="text-center mt-3 font-700 color-white"><%=LANG['LANG23'][NUM]%></h1>
+  <p class="boxed-text-l color-white opacity-70" id="scontent">
+  </p>
+  <a href="#" class="btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black" onclick="closePop('menu-success-2')"><%=LANG['LANG24'][NUM]%></a>
+</div>
+<div id="menu-success-3" class="menu menu-box-modal bg-green-dark rounded-m" data-menu-height="310" data-menu-width="350">
+  <h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
+  <h1 class="text-center mt-3 font-700 color-white"><%=LANG['LANG23'][NUM]%></h1>
+  <p class="boxed-text-l color-white opacity-70" id="scontent1">
+  </p>
+  <a href="#" class="btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black" onclick="closePop('menu-success-3',true)"><%=LANG['LANG24'][NUM]%></a>
+</div>
+<div id="menu-warning-1" class="menu menu-box-modal rounded-m" data-menu-height="140" data-menu-width="350">
+  <div class="menu-title">
+    <i class="fa fa-times-circle float-left mr-3 scale-box ml-3 fa-4x color-red-dark"></i>
+    <p class="color-highlight"><%=LANG['LANG25'][NUM]%></p>
+    <h1><%=LANG['LANG26'][NUM]%></h1>
+    <a href="#" onclick="closePop('menu-warning-1')"><i class="fa fa-times-circle"></i></a>
+  </div>
+  <div class="content mb-0 mt-0">
+    <p class="pr-3" id="fcontent">
+    </p>
+  </div>
+</div>
+<div id="menu-warning-2" class="menu menu-box-modal bg-red-dark rounded-m" data-menu-height="310" data-menu-width="350">
+  <h1 class="text-center mt-4"><i class="fa fa-3x fa-times-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
+  <h1 class="text-center mt-3 text-uppercase color-white font-700">Wooops!</h1>
+  <p class="boxed-text-l color-white opacity-70" id="warnContent">
+  </p>
+  <a href="#" class="close-menu btn btn-m btn-center-l button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black" onclick="closePop('menu-warning-2')"><%=LANG['LANG28'][NUM]%></a>
+</div>
+<div id="menu-warning-3" class="menu menu-box-modal bg-red-dark rounded-m" data-menu-height="310" data-menu-width="350">
+  <h1 class="text-center mt-4"><i class="fa fa-3x fa-times-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
+  <h1 class="text-center mt-3 text-uppercase color-white font-700">Wooops!</h1>
+  <p class="boxed-text-l color-white opacity-70">
+    <%=LANG['LANG27'][NUM]%>
+  </p>
+  <a href="#" class="close-menu btn btn-m btn-center-l button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black" onclick="closePop('menu-warning-3',false,'farmer')"><%=LANG['LANG28'][NUM]%></a>
+</div>
+<script>
+  var logIn = "<%=LOGIN%>"
+  var HEADADDRESIES = []
+  var MACTIME;
+  var seletedCoin = 0;
+  var headProduct;
+  var firstLogin = <%=FIRSTLOGIN%>
+    setTimeout(() => {}, 1000 * 20)
+
+  function closePop(id, reload, page) {
+    // if(id=='menu-success-2') location.reload()
+    $('#' + id).hideMenu();
+    if (reload) location.reload()
+    if (page) location.href = page
+  }
+
+  function openPop(type, msg) {
+    if (type == 'S') {
+      $('#menu-success-2').showMenu();
+      $("#scontent").text(msg)
+    } else if (type == 'RS') {
+      $('#menu-success-3').showMenu();
+      $("#scontent1").text(msg)
+    } else if (type == 'WR') {
+      $('#menu-warning-2').showMenu();
+      $("#warnContent").text(msg)
+    } else if (type == 'WRF') {
+      $('#menu-warning-3').showMenu();
+    } else {
+      $('#menu-warning-1').showMenu();
+      $("#fcontent").text(msg)
+    }
+  }
+  $(document).ready(() => {
+    // window.onhashchange = function() {
+    //   alert("뒤로간다!")
+    // }
+    if (firstLogin) {
+      var audio = new Audio('/config/Login_Succeed_KOR.mp3')
+      audio.volume = 0.05;
+      audio.play();
+      audio.addEventListener("ended", () => {
+        reqApi({
+          URL: 'getBalances',
+        }).then(data => {
+          var audioBal = data.BALANCES
+          if (audioBal.FRM_RATE == 0) {
+            var audio1 = new Audio('/config/FIRST_FARMBUY.mp3')
+            audio1.volume = 0.05;
+            audio1.play();
+            audio1.addEventListener("ended", () => {
+              // location.reload()
+            })
+          } else if (audioBal.FRM_RATE >= 250) {
+            var audio1 = new Audio('/config/FARM_BUY.mp3')
+            audio1.volume = 0.05;
+            audio1.play();
+            audio1.addEventListener("ended", () => {
+              // location.reload()
+            })
+          }
+        })
+      });
+      reqApi({
+        URL: 'logined',
+      })
+    }
+    reqApiList({
+      URL: 'getCoinAddrs',
+    }).then((data) => {
+      HEADADDRESIES = data.ADDRESIES[0]
+      var innerHtml = '';
+      for (var i = 0; i < HEADADDRESIES.length; i++) {
+        innerHtml += '<option value="' + i + '">' + HEADADDRESIES[i]['D_GUBUN'] + '</option>';
+      }
+      $("#selecTedCoin1").append(innerHtml)
+      $("#CRATE").text(HEADADDRESIES[seletedCoin].RATE)
+      commonLib.bindValue(HEADADDRESIES[seletedCoin])
+      $("#qrcode").attr("src", HEADADDRESIES[seletedCoin]['QRCODE'])
+    })
+    reqApiList({
+      URL: 'getProducts',
+    }).then((data) => {
+      $("#PRODCONTENT").empty()
+      headProduct = data.PRODUCTS[0]
+      commonLib.bindValue(headProduct[0])
+    })
+
+  })
+
+  function changeCoin2(selBox) {
+    seletedCoin = ($(selBox).val() == undefined) ? 0 : $(selBox).val()
+    $("#CRATE").text(HEADADDRESIES[seletedCoin].RATE)
+    commonLib.bindValue(HEADADDRESIES[seletedCoin])
+    $("#qrcode").attr("src", HEADADDRESIES[seletedCoin]['QRCODE'])
+  }
+
+  function reqBuy() {
+    if ("<%=MACTIME.MATLEV%>" != "-1" && $("#D_QTY").val() > 0) {
+      reqApi({
+        URL: 'accountBuy',
+        PARAM: {
+          D_LEVEL: $("#LEVEL").val(),
+          D_QTY: $("#D_QTY").val(),
+          D_ROUND: "<%=MACTIME.S_ALLCNT%>",
+        }
+      }).then((data) => {
+        if (data.ACCBUY.RESULT == 0) {
+          openPop("RS", "<%=LANG['LANG29'][NUM]%>")
+        } else if (data.ACCBUY.RESULT == 4) {
+          openPop("F", "USD" + "<%=LANG['LANG256'][NUM]%>")
+        } else {
+          openPop("F", "USD" + "<%=LANG['LANG30'][NUM]%>")
+        }
+      })
+    } else {
+      //  $("#menu-success-2").trigger("click")
+      openPop("F", "<%=LANG['LANG31'][NUM]%>")
+    }
+  }
+
+  function copyTextInModal() {
+    var dummyLink = HEADADDRESIES[seletedCoin]['ADDRESS'];
+    var dummy = $('<input>').val(dummyLink).appendTo('body').select();
+    dummy.focus();
+    document.execCommand('copy');
+    openPop("S", "Copied")
+  }
+
+  function changeLev(val) {
+    var index = $(val).val().replace('0', '')
+    commonLib.bindValue(headProduct[index - 1])
+  }
+</script>

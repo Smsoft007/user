@@ -1,0 +1,176 @@
+<div class="menu-title">
+  <h1 class="font-24"><%=LANG['LANG163'][NUM]%></h1>
+  <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+</div>
+<div class="content mb-0 mt-0">
+  <div class="input-style input-style-1">
+    <span><%=LANG['LANG9'][NUM]%></span>
+    <input type="name" placeholder="<%=LANG['LANG204'][NUM]%>" id="UN_EAD_NAME">
+  </div>
+  <div class="input-style input-style-1">
+    <em><i class="fa fa-angle-down"></i></em>
+    <select class="form-control" id="UCOINSEL">
+    </select>
+  </div>
+  <div class="input-style input-style-1 input-required">
+    <span><%=LANG['LANG205'][NUM]%></span>
+    <em>(required)</em>
+    <input type="name" placeholder="<%=LANG['LANG205'][NUM]%>" id="ADDOUTADDR">
+  </div>
+  <a class="btn btn-full btn-xxs font-600 font-13 bg-dark-dark rounded-s mb-2" onclick="withAddrSendEmail()"><%=LANG['LANG188'][NUM]%></a>
+  <div class="input-style input-style-1 input-required">
+    <span><%=LANG['LANG186'][NUM]%></span>
+    <em>(required)</em>
+    <input type="text" placeholder="<%=LANG['LANG186'][NUM]%>" class="font-16" id="SMS_NO">
+  </div>
+  <a href="#" class="btn btn-full btn-m shadow-l rounded-s font-600 bg-blue-dark mt-4" onclick="addWithAddress()"><%=LANG['LANG187'][NUM]%></a>
+
+  <div class="divider mt-3 mb-3"></div>
+  <div id="addOutAddrList">
+
+  </div>
+
+
+</div>
+<script>
+  var seletedCoin = 0;
+  var D_IDX;
+  var UCOINLIST;
+  $(document).ready(() => {
+    reqApiList({
+      URL: 'getUsingCoinList'
+    }).then(data => {
+      UCOINLIST = data.UCOINLIST[0]
+      $("#UCOINSEL").empty()
+      var innerOpionHtml = ''
+      for (var i = 0; i < UCOINLIST.length; i++) {
+        innerOpionHtml += '<option value="' + UCOINLIST[i].C_SNAME + '">' + UCOINLIST[i].C_LNAME + '</option>';
+      }
+      $("#UCOINSEL").append(innerOpionHtml)
+    })
+    getAddrOutList()
+  })
+  function getAddrOutList(){
+    reqApiList({
+      URL: 'getAddrOutList'
+    }).then(data => {
+      var OUTADDR = data.OUTADDR[0]
+      $("#addOutAddrList").empty()
+      var innerOpionHtml = ''
+      for (var i = 0; i < OUTADDR.length; i++) {
+        innerOpionHtml += '<div class="card card-style mx-0 mb-2 p-3">';
+        innerOpionHtml += '<div class="row">';
+        innerOpionHtml += '<div class="col-5">';
+        innerOpionHtml += '<h5 class="color-green-dark mb-0">(' + OUTADDR[i].D_GUBUN + ')'+OUTADDR[i].D_CNAME+'</h5>';
+        innerOpionHtml += '</div>';
+        innerOpionHtml += '<div class="col-7">';
+        innerOpionHtml += '<p class="text-right">' + OUTADDR[i].D_CDATE + '</p>';
+        innerOpionHtml += '</div>';
+        innerOpionHtml += '</div>';
+        innerOpionHtml += '<h6 class="break-word">' + OUTADDR[i].ADDR + '</h6>';
+        innerOpionHtml += '<a class="btn btn-full btn-xxs font-600 font-13 bg-red-dark rounded-s mb-2" onclick="delOutAddr(' + OUTADDR[i].D_SEQ + ')"><%=LANG["LANG206"][NUM]%></a>';
+        innerOpionHtml += '</div>';
+      }
+      $("#addOutAddrList").append(innerOpionHtml)
+    })
+  }
+  async function withAddrSendEmail() {
+    var EmailParam = {}
+    EmailParam['D_MAIL'] = "<%=MY_INFO.D_EMAIL%>"
+    EmailParam['TITLE'] = "GlodDuck add Withdraw Address Mail"
+    EmailParam['D_FLAG'] = "001"
+    var valResult = commonLib.objValidate(EmailParam)
+    if (valResult) {
+      alert(lang(valResult))
+      return
+    }
+    var r = await reqApi({
+      URL: 'mailSender/purchSendMail',
+      PARAM: EmailParam
+    })
+    if (r.SENDMAIL == -1) {
+      openPop("F", "<%=LANG['LANG189'][NUM]%>")
+    } else {
+      openPop("S", "<%=LANG['LANG190'][NUM]%>")
+      D_IDX = r.NMAIL
+    }
+  }
+  async function delOutAddr(val) {
+    var r = await reqApi({
+      URL: 'delOutAddr',
+      PARAM: {
+        IDX: val + ""
+      }
+    })
+    if (r.DELADDR.RESULT == 0) {
+      openPop("S", "<%=LANG['LANG207'][NUM]%>")
+      getAddrOutList()
+    } else {
+      openPop("F", "<%=LANG['LANG208'][NUM]%>")
+    }
+  }
+  async function addWithAddress() {
+    var Param = {}
+    Param['D_SMSNO'] = $("#SMS_NO").val()
+    Param['D_FLAG'] = "001";
+    Param['D_IDX'] = D_IDX + ""
+
+    var PARAM = {}
+    PARAM['SNAME'] = $("#UCOINSEL").val()
+    PARAM['UN_EAD_NAME'] = $("#UN_EAD_NAME").val()
+    PARAM['ADDR'] = $("#ADDOUTADDR").val()
+    PARAM['D_KEY'] = D_IDX + ""
+    var valResult = commonLib.objValidate(PARAM)
+    if (valResult) {
+      openPop("F", "<%=LANG['LANG192'][NUM]%>")
+      return
+    }
+    var valResult = commonLib.objValidate(Param)
+    if (valResult) {
+      openPop("F", "<%=LANG['LANG193'][NUM]%>")
+      return
+    }
+
+    var r = await reqApi({
+      URL: 'mailConfirm',
+      PARAM: Param
+    })
+    var result = r.MAILCONF
+    if (r.MAILCONF.RESULT == 0) {
+      var r = await reqApi({
+        URL: 'reqAddOutAddr',
+        PARAM: PARAM
+      })
+      var widthResult = r.ADDOUTADDR.RESULT
+      if (widthResult == 0) {
+        openPop("S", "<%=LANG['LANG209'][NUM]%>")
+        $("#UCOINSEL").val("")
+        $("#UN_EAD_NAME").val("")
+        $("#ADDOUTADDR").val("")
+        $("#SMS_NO").val("")
+        closePop('menu-withdrawaddress')
+        D_IDX =""
+        getAddrOutList()
+      } else if (widthResult == 1) {
+        openPop("F", "<%=LANG['LANG210'][NUM]%>")
+      } else if (widthResult == 2) {
+        openPop("F", "<%=LANG['LANG211'][NUM]%>")
+      } else if (widthResult == 3) {
+        openPop("F", "<%=LANG['LANG212'][NUM]%>")
+      } else if (widthResult == 4) {
+        openPop("F", "<%=LANG['LANG213'][NUM]%>")
+      } else if (widthResult == 5) {
+        openPop("F", "<%=LANG['LANG214'][NUM]%>")
+      } else if (widthResult == 6) {
+        openPop("F", "<%=LANG['LANG215'][NUM]%>")
+      } else {
+        openPop("F", "<%=LANG['LANG216'][NUM]%>")
+      }
+    } else if (r.MAILCONF.RESULT == 1) {
+      openPop("F", "<%=LANG['LANG199'][NUM]%>")
+    } else if (r.MAILCONF.RESULT == 2) {
+      openPop("F", "<%=LANG['LANG200'][NUM]%>")
+    } else {
+    }
+  }
+</script>

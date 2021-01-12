@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<%- include('head') %>
+
+<body class="theme-dark">
+
+  <div id="preloader">
+    <div class="spinner-border color-highlight" role="status"></div>
+  </div>
+
+  <div id="page">
+
+    <%- include('appHeader') %>
+    <div class="page-title-clear"></div>
+
+    <div class="page-content">
+
+      <div class="content mt-0 mb-2">
+        <div class="row mb-2">
+          <div class="col-6">
+            <div class="input-style input-style-1 input-required">
+              <span class="color-highlight"><%=LANG['LANG32'][NUM]%></span>
+              <em><i class="fa fa-angle-down"></i></em>
+              <input type="date" id="sdate">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-style input-style-1 input-required">
+              <span class="color-highlight"><%=LANG['LANG33'][NUM]%></span>
+              <em><i class="fa fa-angle-down"></i></em>
+              <input type="date" id="edate">
+            </div>
+          </div>
+          <div class="col-12">
+            <a class="btn btn-xxs btn-full rounded-xs text-uppercase font-900 shadow-s bg-dark-dark" onclick="searchList()"><i class="fas fa-search"></i> <%=LANG['LANG48'][NUM]%></a>
+          </div>
+        </div>
+        <div class="row mb-0">
+          <p class="col-8 mb-0 pt-2"><%=LANG['LANG34'][NUM]%> : <data-tag id="totalAmt"></data-tag>
+          </p>
+          <div class="col-4">
+            <div class="input-style input-style-2 mb-0">
+              <em><i class="fa fa-angle-down"></i></em>
+              <select class="form-control font-14" id="LEVEL">
+                <option value="10">10<%=LANG['LANG35'][NUM]%></option>
+                <option value="20">20<%=LANG['LANG35'][NUM]%></option>
+                <option value="30">50<%=LANG['LANG35'][NUM]%></option>
+                <option value="40">100<%=LANG['LANG35'][NUM]%></option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="tab-controls tabs-round tab-animated tabs-medium tabs-rounded shadow-xl" data-tab-items="3" data-tab-active="bg-blue-dark color-white">
+          <a href="#" data-tab-active data-tab="taball" onclick="getList(0)"><%=LANG['LANG39'][NUM]%></a>
+          <a href="#" data-tab="tabsell" onclick="getList(1)"><%=LANG['LANG82'][NUM]%></a>
+          <a href="#" data-tab="tabbuy" onclick="getList(2)"><%=LANG['LANG83'][NUM]%></a>
+        </div>
+        <div class="clearfix mb-3"></div>
+        <div class="tab-content" id="taball">
+        </div>
+        <div class="tab-content" id="tabsell">
+        </div>
+        <div class="tab-content" id="tabbuy">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</body>
+<script>
+  var tableNames = ['taball', 'tabsell', 'tabbuy']
+  var nowPages = 1;
+  var pageRange = 5;
+  var currentPage = 1;
+  var pageLevel = 0;
+  var totalPage = 0;
+  var cnt = 0;
+  var selectedVal = 0;
+  var totalAmt = 0
+  var LISTPARAM = {
+    D_STATUS: "0",
+    CNT: "true",
+    D_SDATE: " ",
+    D_EDATE: " ",
+    CUR_PAGING: "1",
+    PAGING_NO: "10"
+  }
+  $(document).ready(() => {
+    getList(selectedVal)
+  })
+
+  function searchList() {
+    LISTPARAM['D_SDATE'] = ($("#sdate").val() == '') ? " " : $("#sdate").val()
+    LISTPARAM['D_EDATE'] = ($("#edate").val() == '') ? " " : $("#edate").val()
+    getList(selectedVal)
+  }
+
+  function getList(val) {
+    LISTPARAM['CUR_PAGING'] = currentPage + ""
+    if (selectedVal != val) {
+      $("#sdate").val('')
+      $("#edate").val('')
+      LISTPARAM = {
+        D_STATUS: "0",
+        CNT: "true",
+        D_SDATE: " ",
+        D_EDATE: " ",
+        CUR_PAGING: "1",
+        PAGING_NO: "10"
+      }
+      nowPages = 1;
+      pageRange = 5;
+      currentPage = 1;
+      pageLevel = 0;
+      totalPage = 0;
+      cnt = 0;
+      selectedVal = val
+    }
+    LISTPARAM['D_STATUS'] = selectedVal + ""
+    reqApiList({
+      URL: 'getTradList',
+      PARAM: LISTPARAM
+    }).then((data) => {
+      $("#" + tableNames[val]).empty()
+      listData = data.LISTDATA[0]
+      console.log(listData);
+      if (data.CNT.ALL_CNT != 0) {
+        cnt = data.CNT.ALL_CNT
+        totalPage = Math.floor(cnt / 10) + ((cnt % 10 != 0) ? 1 : 0)
+        pageLevel = Math.floor(currentPage / (pageRange + 1))
+        nowPages = (totalPage - (pageLevel * 5) > 5) ? 5 : totalPage - (pageLevel * 5)
+      }
+      var innerHTML = '';
+      for (var i = 0; i < listData.length; i++) {
+        totalAmt = listData[i].ALL_BUYAMT
+        var buyType = (listData[i].M_AUTO == '0') ? '<%=LANG["LANG66"][NUM]%>' : '<%=LANG["LANG67"][NUM]%>'
+        var BUHO = (listData[i].TR_GUBUN == 'BUY') ? "-" : "+"
+        innerHTML += '<div class="card card-style mx-0 mb-2 p-3">';
+        innerHTML += '<p class="mb-1">주문번호 LANG68: ' + listData[i].M_PROCODE + ' <span class="float-right">Round-' + listData[i].M_MACH_ROUND + '</span></p>';
+        innerHTML += '<div class="row mb-1">';
+        innerHTML += (listData[i].TR_GUBUN != 'BUY') ? '<h4 class="col-7 text-left color-red-dark">Sell' : '<h4 class="col-7 text-left color-highlight-dark">Buy'
+        innerHTML += '<span class="font-14 pl-2">' + listData[i].M_PNAME_KR + ' (' + buyType + ')</span></h4>'
+        innerHTML += (listData[i].M_STATUS != '3') ? '<h4 class="col-5 text-right text-right color-highlight-dark">' + BUHO + ' $' + listData[i].ALL_PSAMT + '</h4>' : '<h4 class="col-5 text-right text-right color-red-dark">' + BUHO + ' $' +
+          listData[i].ALL_MBAMT + '</h4>';
+        innerHTML += '</div>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0"><%=LANG["LANG69"][NUM]%> <span class="float-right">' + listData[i].M_REVENUE + ' $</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0"><%=LANG["LANG70"][NUM]%> <span class="float-right">' + listData[i].M_BUYAMOUNT + ' $</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0"><%=LANG["LANG71"][NUM]%> <span class="float-right">' + listData[i].M_SELLAMOUNT + ' $</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0"><%=LANG["LANG72"][NUM]%> <span class="float-right">' + listData[i].M_AUTOFEE + ' $</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0">PAY <%=LANG["LANG73"][NUM]%> <span class="float-right">' + listData[i].M_PAYFEE + ' $</span></h5>';
+        innerHTML += '<p class="font-14 mb-0"><%=LANG["LANG74"][NUM]%>:' + listData[i].M_BUYDATE + '</p>';
+        innerHTML += '<p class="font-14 mb-0"><%=LANG["LANG75"][NUM]%>:' + listData[i].M_SELLDATE + '</p>';
+        innerHTML += '</div>';
+      }
+      innerHTML += '<nav aria-label="pagination-demo">';
+      innerHTML += '<ul class="pagination pagination- justify-content-center mt-2">';
+      innerHTML += '<li class="page-item" onclick="btnPage(\'bef\')">';
+      innerHTML += '<a class="page-link rounded-xs color-white bg-dark-dark color-white shadow-xl border-0" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left"></i></a>';
+      innerHTML += '</li>';
+      for (var i = 1; i <= nowPages; i++) {
+        if (((pageLevel * 5) + i) == currentPage) {
+          innerHTML += '<li class="page-item" onclick="movePage(' + i + ')"><a class="page-link rounded-xs bg-highlight color-white shadow-l border-0" href="#">' + ((pageLevel * 5) + i) + '' + '<span class="sr-only">(current)</span></a></li>';
+        } else {
+          innerHTML += '<li class="page-item" onclick="movePage(' + i + ')"><a class="page-link rounded-xs bg-dark-dark color-white shadow-l border-0" href="#">' + ((pageLevel * 5) + i) + '' + '</a></li>';
+        }
+      }
+      innerHTML += '<li class="page-item" onclick="btnPage(\'next\')">';
+      innerHTML += '<a class="page-link rounded-xs color-white bg-dark-dark color-white shadow-l border-0"><i class="fa fa-angle-right"></i></a>';
+      innerHTML += '</li>';
+      innerHTML += '</ul>';
+      innerHTML += '</nav>';
+      $("#" + tableNames[val]).append(innerHTML)
+      $("#totalAmt").text(totalAmt)
+    })
+  }
+
+  function movePage(page) {
+    currentPage = (pageLevel * 5) + page
+    getList(selectedVal)
+  }
+
+  function btnPage(pos) {
+    if (pos == "bef" && currentPage > 1) {
+      currentPage--
+      getList(selectedVal)
+    } else if (pos == "next" && currentPage < totalPage) {
+      currentPage++
+      getList(selectedVal)
+    }
+  }
+</script>

@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<%- include('head') %>
+
+<body class="theme-dark">
+
+  <div id="preloader">
+    <div class="spinner-border color-highlight" role="status"></div>
+  </div>
+
+  <div id="page">
+    <%- include('appHeader') %>
+    <div class="page-title-clear"></div>
+
+    <div class="page-content">
+
+      <div class="content mt-0 mb-2">
+        <div class="row mb-2">
+          <div class="col-6">
+            <div class="input-style input-style-1 input-required">
+              <span class="color-highlight"><%=LANG['LANG32'][NUM]%></span>
+              <em><i class="fa fa-angle-down"></i></em>
+              <input type="date" id="sdate">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-style input-style-1 input-required">
+              <span class="color-highlight"><%=LANG['LANG33'][NUM]%></span>
+              <em><i class="fa fa-angle-down"></i></em>
+              <input type="date" id="edate">
+            </div>
+          </div>
+          <div class="col-12">
+            <a class="btn btn-xxs btn-full rounded-xs text-uppercase font-900 shadow-s bg-dark-dark" onclick="searchList()"><i class="fas fa-search"></i> <%=LANG['LANG48'][NUM]%></a>
+          </div>
+        </div>
+        <div class="row mb-0">
+          <p class="col-8 mb-0 pt-2"><%=LANG['LANG34'][NUM]%> : <data-tag id="totalAmt"></data-tag>
+          </p>
+          <div class="col-4">
+            <div class="input-style input-style-2 mb-0">
+              <em><i class="fa fa-angle-down"></i></em>
+              <select class="form-control font-14" id="LEVEL" onchange="changeLev(this)">
+                <option value="10">10<%=LANG['LANG35'][NUM]%></option>
+                <option value="20">20<%=LANG['LANG35'][NUM]%></option>
+                <option value="30">50<%=LANG['LANG35'][NUM]%></option>
+                <option value="40">100<%=LANG['LANG35'][NUM]%></option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="tab-controls tabs-round tab-animated tabs-medium tabs-rounded shadow-xl" data-tab-items="4" data-tab-active="bg-blue-dark color-white">
+          <a href="#" data-tab-active data-tab="taball" onclick="getList(' ')"><%=LANG['LANG39'][NUM]%></a>
+          <a href="#" data-tab="tabETH" onclick="getList('ETH')">ETH</a>
+          <a href="#" data-tab="tabBTC" onclick="getList('BTC')">BTC</a>
+          <a href="#" data-tab="tabUSDT" onclick="getList('USDT')">USDT</a>
+        </div>
+        <div class="clearfix mb-3"></div>
+
+        <div class="tab-content" id="taball">
+          <!-- <div class="card card-style mx-0 mb-2 p-3">
+            <p class="mb-1">입금완료일시 :2020-07-04T11 : 41 : 00.000Z</p>
+            <div class="row mb-1">
+              <h4 class="col-8 text-left color-yellow-dark">ETH</h4>
+              <h4 class="col-4 text-right text-right color-highlight-dark">신청</h4>
+            </div>
+            <h6 class="font-300 font-18 font-600 mb-0">이체금액 <span class="float-right">36.15 $</span></h6>
+            <h6 class="font-300 font-14 mb-0">Rate <span class="float-right">226.5242</span></h6>
+            <h6 class="font-300 font-14 mb-0">출금완료일시 <span class="float-right text-right break-word font-12">2020-07-04T11 : 41 : 00.000Z</span></h6>
+            <h6 class="font-300 font-14 mb-0">수신자주소 <span class="float-right text-right break-word font-12">0x87fe7e05cc0ccca97ab3c3396a89d5c2fade7d78</span></h6>
+            <h6 class="font-300 font-14 mb-0">TXID <span class="float-right text-right break-word font-12">0xeace554675dd3d8a7a3e3b2adf2dc82c9338a0555951c39564af6d8a6346d81d</span></h6>
+          </div>
+
+          <div class="card card-style mx-0 mb-2 p-3">
+            <p class="mb-1">입금완료일시 :2020-07-04T11 : 41 : 00.000Z</p>
+            <div class="row mb-1">
+              <h4 class="col-8 text-left color-highlight-dark">BTC</h4>
+              <h4 class="col-4 text-right text-right color-red-dark">완료</h4>
+            </div>
+            <h6 class="font-300 font-18 font-600 mb-0">이체금액 <span class="float-right">36.15 $</span></h6>
+            <h6 class="font-300 font-14 mb-0">Rate <span class="float-right">226.5242</span></h6>
+            <h6 class="font-300 font-14 mb-0">출금완료일시 <span class="float-right text-right break-word font-12">2020-07-04T11 : 41 : 00.000Z</span></h6>
+            <h6 class="font-300 font-14 mb-0">수신자주소 <span class="float-right text-right break-word font-12">0x87fe7e05cc0ccca97ab3c3396a89d5c2fade7d78</span></h6>
+            <h6 class="font-300 font-14 mb-0">TXID <span class="float-right text-right break-word font-12">0xeace554675dd3d8a7a3e3b2adf2dc82c9338a0555951c39564af6d8a6346d81d</span></h6>
+          </div>
+
+          <div class="card card-style mx-0 mb-2 p-3">
+            <p class="mb-1">입금완료일시 :2020-07-04T11 : 41 : 00.000Z</p>
+            <div class="row mb-1">
+              <h4 class="col-8 text-left color-green-dark">USDT</h4>
+              <h4 class="col-4 text-right text-right color-highlight-dark">신청</h4>
+            </div>
+            <h6 class="font-300 font-18 font-600 mb-0">이체금액 <span class="float-right">36.15 $</span></h6>
+            <h6 class="font-300 font-14 mb-0">Rate <span class="float-right">226.5242</span></h6>
+            <h6 class="font-300 font-14 mb-0">출금완료일시 <span class="float-right text-right break-word font-12">2020-07-04T11 : 41 : 00.000Z</span></h6>
+            <h6 class="font-300 font-14 mb-0">수신자주소 <span class="float-right text-right break-word font-12">0x87fe7e05cc0ccca97ab3c3396a89d5c2fade7d78</span></h6>
+            <h6 class="font-300 font-14 mb-0">TXID <span class="float-right text-right break-word font-12">0xeace554675dd3d8a7a3e3b2adf2dc82c9338a0555951c39564af6d8a6346d81d</span></h6>
+          </div> -->
+
+          <!-- <nav aria-label="pagination-demo">
+            <ul class="pagination pagination- justify-content-center mt-2">
+              <li class="page-item">
+                <a class="page-link rounded-xs color-white bg-dark-dark color-white shadow-xl border-0" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left"></i></a>
+              </li>
+              <li class="page-item"><a class="page-link rounded-xs bg-dark-dark color-white shadow-l border-0" href="#">1</a></li>
+              <li class="page-item"><a class="page-link rounded-xs bg-dark-dark color-white shadow-l border-0" href="#">2</a></li>
+              <li class="page-item"><a class="page-link rounded-xs bg-highlight color-white shadow-l border-0" href="#">3<span class="sr-only">(current)</span></a></li>
+              <li class="page-item"><a class="page-link rounded-xs bg-dark-dark color-white shadow-l border-0" href="#">4</a></li>
+              <li class="page-item"><a class="page-link rounded-xs bg-dark-dark color-white shadow-l border-0" href="#">5</a></li>
+              <li class="page-item">
+                <a class="page-link rounded-xs color-white bg-dark-dark color-white shadow-l border-0" href="#"><i class="fa fa-angle-right"></i></a>
+              </li>
+            </ul>
+          </nav> -->
+
+        </div>
+
+        <div class="tab-content" id="tabETH">
+        </div>
+        <div class="tab-content" id="tabBTC">
+        </div>
+        <div class="tab-content" id="tabUSDT">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</body>
+<script>
+  var tableNames = {
+    " ": 'taball',
+    "ETH": 'tabETH',
+    "BTC": 'tabBTC',
+    "USDT": 'tabUSDT'
+  }
+  var nowPages = 1;
+  var pageRange = 5;
+  var currentPage = 1;
+  var pageLevel = 0;
+  var totalPage = 0;
+  var cnt = 0;
+  var selectedVal = ' ';
+  var totalAmt = 0
+  var LISTPARAM = {
+    GUBUN: "0",
+    CNT: "true",
+    D_SDATE: " ",
+    D_EDATE: " ",
+    CUR_PAGING: "1",
+    PAGING_NO: "10"
+  }
+  $(document).ready(() => {
+    getList(selectedVal)
+  })
+
+  function searchList() {
+    LISTPARAM['D_SDATE'] = ($("#sdate").val() == '') ? " " : $("#sdate").val()
+    LISTPARAM['D_EDATE'] = ($("#edate").val() == '') ? " " : $("#edate").val()
+    getList(selectedVal)
+  }
+
+  function getList(val) {
+    LISTPARAM['CUR_PAGING'] = currentPage + ""
+    if (selectedVal != val) {
+      $("#sdate").val('')
+      $("#edate").val('')
+      LISTPARAM = {
+        GUBUN: " ",
+        CNT: "true",
+        D_SDATE: " ",
+        D_EDATE: " ",
+        CUR_PAGING: "1",
+        PAGING_NO: "10"
+      }
+      nowPages = 1;
+      pageRange = 5;
+      currentPage = 1;
+      pageLevel = 0;
+      totalPage = 0;
+      cnt = 0;
+      selectedVal = val
+    }
+    LISTPARAM['GUBUN'] = selectedVal + ""
+    reqApiList({
+      URL: 'getOutList',
+      PARAM: LISTPARAM
+    }).then((data) => {
+      $("#" + tableNames[val]).empty()
+      listData = data.LISTDATA[0]
+      if (data.CNT.ALL_CNT != 0) {
+        cnt = data.CNT.ALL_CNT
+        totalPage = Math.floor(cnt / 10) + ((cnt % 10 != 0) ? 1 : 0)
+        pageLevel = Math.floor(currentPage / (pageRange + 1))
+        nowPages = (totalPage - (pageLevel * 5) > 5) ? 5 : totalPage - (pageLevel * 5)
+      }
+      var innerHTML = '';
+
+      for (var i = 0; i < listData.length; i++) {
+        totalAmt = listData[i].OUT_ALLAMT
+        var coinColor = (listData[i].MS_SNAME == 'ETH') ? 'color-yellow-dark' : (listData[i].MS_SNAME == 'BTC') ? "color-highlight-dark" : "color-green-dark"
+        innerHTML += '<div class="card card-style mx-0 mb-2 p-3">';
+        innerHTML += '<p class="mb-1"><%=LANG["LANG76"][NUM]%> :' + listData[i].MS_IDATE + '</p>';
+        innerHTML += '<div class="row mb-1">';
+        innerHTML += '<h4 class="col-8 text-left ' + coinColor + '">' + listData[i].MS_SNAME + '</h4>';
+        innerHTML += (listData[i].MS_CONFIRM_YN == 'N') ? '<h4 class="col-4 text-right text-right color-highlight-dark"><%=LANG["LANG77"][NUM]%></h4>' : '<h4 class="col-4 text-right text-right color-red-dark"><%=LANG["LANG78"][NUM]%></h4>'
+        innerHTML += '</div>';
+        innerHTML += '<h5 class="font-300 font-18 font-600 mb-0"><%=LANG["LANG79"][NUM]%> <span class="float-right">' + listData[i].MS_OUTAMT + ' $</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0">Rate <span class="float-right">' + listData[i].MS_RATE + '</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0">QTY <span class="float-right">' + listData[i].MS_QTY + ' ' + listData[i].MS_SNAME + '</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0"><%=LANG["LANG80"][NUM]%> <span class="float-right text-right break-word font-12">' + listData[i].MS_OKDATE + '</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0"><%=LANG["LANG81"][NUM]%> <span class="float-right text-right break-word font-12">' + listData[i].MS_RECIVEADDR + '</span></h5>';
+        innerHTML += '<h5 class="font-300 font-14 mb-0">TXID <span class="float-right text-right break-word font-12">' + listData[i].MS_TXID + '</span></h5>';
+        innerHTML += '</div>';
+      }
+      innerHTML += '<nav aria-label="pagination-demo">';
+      innerHTML += '<ul class="pagination pagination- justify-content-center mt-2">';
+      innerHTML += '<li class="page-item" onclick="btnPage(\'bef\')">';
+      innerHTML += '<a class="page-link rounded-xs color-white bg-dark-dark color-white shadow-xl border-0" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left"></i></a>';
+      innerHTML += '</li>';
+      for (var i = 1; i <= nowPages; i++) {
+        if (((pageLevel * 5) + i) == currentPage) {
+          innerHTML += '<li class="page-item" onclick="movePage(' + i + ')"><a class="page-link rounded-xs bg-highlight color-white shadow-l border-0" href="#">' + ((pageLevel * 5) + i) + '' + '<span class="sr-only">(current)</span></a></li>';
+        } else {
+          innerHTML += '<li class="page-item" onclick="movePage(' + i + ')"><a class="page-link rounded-xs bg-dark-dark color-white shadow-l border-0" href="#">' + ((pageLevel * 5) + i) + '' + '</a></li>';
+        }
+      }
+      innerHTML += '<li class="page-item" onclick="btnPage(\'next\')">';
+      innerHTML += '<a class="page-link rounded-xs color-white bg-dark-dark color-white shadow-l border-0"><i class="fa fa-angle-right"></i></a>';
+      innerHTML += '</li>';
+      innerHTML += '</ul>';
+      innerHTML += '</nav>';
+      $("#" + tableNames[val]).append(innerHTML)
+      $("#totalAmt").text(totalAmt)
+    })
+  }
+
+  function movePage(page) {
+    currentPage = (pageLevel * 5) + page
+    getList(selectedVal)
+  }
+
+  function btnPage(pos) {
+    if (pos == "bef" && currentPage > 1) {
+      currentPage--
+      getList(selectedVal)
+    } else if (pos == "next" && currentPage < totalPage) {
+      currentPage++
+      getList(selectedVal)
+    }
+  }
+</script>

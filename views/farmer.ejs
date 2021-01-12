@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<%- include('head') %>
+
+<body class="theme-dark">
+
+  <div id="preloader">
+    <div class="spinner-border color-highlight" role="status"></div>
+  </div>
+
+  <div id="page">
+
+    <%- include('appHeader') %>
+
+    <div class="page-title-clear"></div>
+
+    <div class="page-content">
+
+      <div class="content" id="LISTCONETNE">
+
+      </div>
+
+    </div>
+    <!--팝업자리-->
+    <div id="menu-farm" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="480" data-menu-effect="menu-over">
+      <div class="menu-title">
+        <h1 class="font-24"><%=LANG["LANG99"][NUM]%></h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+      </div>
+      <div class="content mb-0 mt-0">
+        <h5><%=LANG["LANG92"][NUM]%> : <data-tag id="MAX_30AMT"></data-tag>
+        </h5>
+        <div class="progress" style="height:24px;">
+          <div class="progress-bar border-0 bg-highlight text-left pl-2" role="progressbar" style="width: 100%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" id="FRATEG">
+            <span class="position-absolute color-white">
+              <data-tag id="FRATE"></data-tag>% <%=LANG["LANG93"][NUM]%>
+            </span>
+          </div>
+        </div>
+        <h5 class="mt-3">USD <%=LANG["LANG94"][NUM]%> : $ <data-tag id="USDAMT"></data-tag>
+        </h5>
+        <h5><%=LANG["LANG95"][NUM]%> : <data-tag id="PLAIN"></data-tag>
+        </h5>
+        <a href="#" class="close-menu btn btn-full gradient-dark font-13 btn-xxs font-600 mt-2 rounded-s" id="CURYN">
+        </a>
+        <!-- <a href="#" class="close-menu btn btn-full gradient-red font-13 btn-xxs font-600 mt-2 rounded-s">Davide 관리비지급</a> -->
+        <div class="divider mt-3 mb-3"></div>
+        <p class="mb-0 font-14 font-600"><%=LANG["LANG96"][NUM]%> : <data-tag id="FNAME"></data-tag>
+        </p>
+        <p class="mb-0 font-14 font-600"><%=LANG["LANG97"][NUM]%> : <data-tag id="CUR_PLAIN"></data-tag>
+        </p>
+        <p class="mb-0 font-14 font-600"><%=LANG["LANG98"][NUM]%> : $<data-tag id="CUR_AMT"></data-tag>
+        </p>
+        <div class="divider mt-3 mb-3"></div>
+        <a href="#" class="close-menu btn btn-full gradient-highlight font-13 btn-m font-600 mt-2 rounded-s" onclick="buyFarmFarmDt()"><%=LANG["LANG113"][NUM]%></a>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  var listData = []
+  var Level;
+  $(document).ready(() => {
+    reqApiList({
+      URL: 'getFarmList',
+    }).then((data) => {
+      $("#LISTCONETNE").empty()
+      listData = data.FARMLIST[0]
+      var innerHTML = '';
+      for (var i = 0; i < listData.length; i++) {
+        innerHTML += '<div class="card card-style mx-0 farmer-0' + listData[i].F_LEVEL + '" data-card-height="200">';
+        innerHTML += '<div class="card-top pl-3 pt-3">';
+        innerHTML += '<h1 class="color-white font-19 text-shadow">' + listData[i].F_FNAME + '</h1>';
+        innerHTML += '</div>';
+        innerHTML += '<div class="card-top pt-3 pr-3">';
+        innerHTML += '<a data-menu="menu-farm" onclick="getFarmDt(' + listData[i].F_LEVEL + ')" data-back-button class="btn btn-xxs gradient-highlight rounded-s float-right"><%=LANG["LANG114"][NUM]%></a>';
+        innerHTML += '</div>';
+        innerHTML += '<div class="card-center pr-3">';
+        innerHTML += '<h5 class="color-white text-right text-shadow"><span class="float-left ml-3">' + listData[i].F_LEVEL + '</span><%=LANG["LANG115"][NUM]%> : ' + listData[i].F_OUTRATE + '%</h5>';
+        innerHTML += '<p class="color-white text-right mb-0 text-shadow"><%=LANG["LANG95"][NUM]%> ' + listData[i].F_FPLAIN + ' <%=LANG["LANG101"][NUM]%> </p>';
+        innerHTML += '<h4 class="color-white text-right text-shadow"><%=LANG["LANG98"][NUM]%> : ' + listData[i].F_AMOUNT + '$</h4>';
+        innerHTML += '</div>';
+        innerHTML += '<div class="card-bottom pl-3 pb-2">';
+        innerHTML += '<p class="color-white mb-0"><%=LANG["LANG102"][NUM]%> : ' + listData[i].F_SINCERITY + '%</p>';
+        innerHTML += '<p class="color-white"><%=LANG["LANG103"][NUM]%>: ' + listData[i].F_TECHNOLOGY + '</p>';
+        innerHTML += '</div>';
+        innerHTML += '<div class="card-bottom pr-3 pb-2">';
+        innerHTML += (listData[i].CUR_YN == "N") ? '<p class="color-white float-right"><%=LANG["LANG104"][NUM]%></p>' : '<p class="color-white float-right"><%=LANG["LANG105"][NUM]%> : ' + listData[i].MAX_SELLDATE + '</p>'
+        innerHTML += '</div>';
+        innerHTML += '<div class="card-overlay bg-gradient"></div>';
+        innerHTML += '</div>';
+      }
+      $("#LISTCONETNE").append(innerHTML)
+    })
+  })
+
+  function getFarmDt(val) {
+    Level = val
+    reqApi({
+      URL: 'getFarm',
+      PARAM: {
+        LEVEL: val + ""
+      }
+    }).then((data) => {
+      commonLib.bindValue(data.GETFARM)
+      $("#FRATEG").css("width", data.GETFARM['FRATE'] + "%");
+      var addCssClass = (data.GETFARM['CUR_YN'] == "Y") ? 'gradient-dark' : 'gradient-red'
+      $('#CURYN').addClass(addCssClass);
+      $("#CURYN").text((data.GETFARM['CUR_YN'] == "Y") ? '<%=LANG["LANG106"][NUM]%>' : '<%=LANG["LANG107"][NUM]%>')
+
+    })
+  }
+
+  function buyFarmFarmDt() {
+    reqApi({
+      URL: 'sellFarm',
+      PARAM: {
+        LEVEL: Level + ""
+      }
+    }).then((data) => {
+      var r = data.SELLFARM.RESULT
+      if (r == 0) {
+        openPop("RS", "<%=LANG['LANG108'][NUM]%>")
+      } else if (r == 1) {
+        openPop("F", "<%=LANG['LANG109'][NUM]%>")
+      } else if (r == 2) {
+        openPop("F", "<%=LANG['LANG110'][NUM]%>")
+      } else if (r == 3) {
+        openPop("F", "<%=LANG['LANG111'][NUM]%>")
+      } else {
+        openPop("F", "<%=LANG['LANG112'][NUM]%>")
+      }
+    })
+  }
+</script>

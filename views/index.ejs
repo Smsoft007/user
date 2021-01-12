@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<%- include('head') %>
+
+<body class="theme-dark">
+
+  <div id="preloader">
+    <div class="spinner-border color-highlight" role="status"></div>
+  </div>
+
+  <div id="page">
+    <%- include('appHeader') %>
+    <div class="page-title-clear"></div>
+
+    <div class="page-content">
+
+      <div class="card card-style bghj-01 mt-3" data-card-height="160">
+        <div class="card-bottom pl-3 pb-3">
+          <h1 class="font-17 color-white mb-n3">
+            <data-tag id="MY_LEVEL"></data-tag>
+          </h1>
+          <h4 class="font-13 color-white mb-4 opacity-50"><%=LANG["LANG128"][NUM]%></h4>
+          <div class="d-flex">
+            <a href="/farmer">
+              <div class="pr-3">
+                <h5 class="color-white">
+                  <data-tag id="MAX_USE"></data-tag> K
+                </h5>
+                <h6 class="color-white opacity-60"><%=LANG["LANG129"][NUM]%></h6>
+              </div>
+            </a>
+            <!-- <div class="pr-3">
+                        <h5 class="color-white">14k</h5>
+                        <h6 class="color-white opacity-60">Sales</h6>
+                    </div> -->
+            <div class="ml-auto text-right pr-3" data-menu="menu-charge">
+              <h5 class="color-white">$ <data-tag id="USD_AMT"></data-tag>
+              </h5>
+              <h6 class="color-white opacity-60"><%=LANG["LANG130"][NUM]%></h6>
+            </div>
+          </div>
+        </div>
+        <div class="card-overlay bg-black opacity-70"></div>
+      </div>
+
+      <div class="content mb-0 mt-3">
+        <div class="row mb-0">
+          <div class="col-6 pr-1" data-menu="menu-charge">
+            <div class="card card-style mx-0 mb-2 p-3">
+              <h6 class="font-14"><%=LANG["LANG131"][NUM]%></h6>
+              <h3 class="color-green-dark mb-0">+$<data-tag id="C_INAMT"></data-tag>
+              </h3>
+            </div>
+          </div>
+          <div class="col-6 pl-1" data-menu="menu-withdrawal">
+            <div class="card card-style mx-0 mb-2 p-3">
+              <h6 class="font-14"><%=LANG["LANG132"][NUM]%></h6>
+              <h3 class="color-red-dark mb-0">-$<data-tag id="C_OUTAMT"></data-tag>
+              </h3>
+            </div>
+          </div>
+          <div class="col-6 pr-1">
+            <div class="card card-style mx-0 p-3">
+              <h6 class="font-14">Benefit <%=LANG["LANG135"][NUM]%></h6>
+              <h3 class="color-brown-dark mb-0">+$<data-tag id="S_INAMT"></data-tag>
+              </h3>
+            </div>
+          </div>
+          <div class="col-6 pl-1">
+            <div class="card card-style mx-0 p-3">
+              <h6 class="font-14">Benefit <%=LANG["LANG136"][NUM]%></h6>
+              <h3 class="color-blue-dark mb-0">$<data-tag id="MAX_3AMT"></data-tag>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-card-height="150" class="card card-style bghj-02">
+        <div class="card-top pt-4 ml-3 mr-3">
+          <h2 class="color-white font-800"><%=LANG["LANG137"][NUM]%></h2>
+          <p class="mt-n1 color-white">
+            <%=LANG["LANG138"][NUM]%>
+          </p>
+        </div>
+        <div class="card-bottom ml-3 mr-3 mb-4">
+          <div class="progress" style="height:26px;">
+            <div class="progress-bar border-0 bg-theme color-theme text-left pl-2" style="width:100%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="FRM_RATE">
+            </div>
+          </div>
+        </div>
+        <div class="card-overlay gradient-highlight opacity-70"></div>
+      </div>
+
+      <div class="card card-style">
+        <div class="content mb-2">
+          <div class="d-flex">
+            <div class="pt-1">
+              <h4 data-activate="toggle-id-3"><%=LANG["LANG139"][NUM]%></h4>
+            </div>
+            <div class="ml-auto mt-n3 mr-2 pr-2 matchtimeswitch">
+              <p class="mb-0 ml-2"><%=LANG["LANG140"][NUM]%></p>
+              <div class="custom-control ios-switch ios-switch-icon">
+                <input type="checkbox" class="ios-input" id="toggle-id-3" onchange="setAuto(this)">
+                <label class="custom-control-label" for="toggle-id-3"></label>
+                <span><%=LANG["LANG141"][NUM]%></span>
+                <span><%=LANG["LANG142"][NUM]%></span>
+              </div>
+            </div>
+          </div>
+
+          <p class="mb-0 mt-2">
+            <%=LANG["LANG143"][NUM]%>
+          </p>
+          <p class="mb-0 mt-2">
+            <%=LANG["LANG144"][NUM]%>
+          </p>
+          <p class="text-white mb-2"><%=LANG["LANG145"][NUM]%> : <data-tag id="S_TODAY_CNT"></data-tag>
+          </p>
+          <table class="table table-borderless text-center rounded-sm shadow-l" style="overflow: hidden;">
+            <thead>
+              <tr>
+                <th scope="col" class="bg-dark-dark color-white"><%=LANG["LANG146"][NUM]%></th>
+                <th scope="col" class="bg-dark-dark color-white"><%=LANG["LANG147"][NUM]%></th>
+                <th scope="col" class="bg-dark-dark color-white"><%=LANG["LANG148"][NUM]%></th>
+                <th scope="col" class="bg-dark-dark color-white"><%=LANG["LANG149"][NUM]%></th>
+              </tr>
+            </thead>
+            <tbody id="MATCHINGCONTENT">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card card-style">
+        <div class="content">
+        </div>
+      </div> -->
+      <div class="card card-style">
+        <div class="content" id="PRODCONTENT">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="menu-charge" class="menu menu-box-bottom rounded-m bg-theme" data-menu-height="530">
+    <div class="menu-title">
+      <h1 class="font-800">USD 충전</h1>
+      <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+    </div>
+
+    <div class="content">
+
+      <div class="input-style input-style-2">
+        <span class="input-style-1-active bg-">코인</span>
+        <select id="selecTedCoin" onchange="changeCoin(this)">
+        </select>
+      </div>
+
+      <div class="divider mt-2 mb-3"></div>
+
+      <div class="d-flex">
+        <div class="bg-white p-1">
+          <img class="" width="80" id="qrcode">
+        </div>
+        <div class="w-100 ml-3 pt-1">
+          <h4 class="font-500">ETH Rate : $<data-tag id="RATE"></data-tag>
+          </h4>
+          <p>Billing information</p>
+        </div>
+      </div>
+      <span id="mySpan"></span>
+      <div class="mb-2 mt-2">
+        <p class="mb-0">Address</p>
+        <h6 class="break-word">
+          <data-tag id="ADDRESS"></data-tag>
+        </h6>
+        <a class="btn btn-xxs mb-3 rounded-xs text-uppercase font-900 shadow-s bg-dark-dark" onclick="copyTextInModal()">Copy</a>
+      </div>
+
+      <a href="#" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s">미지급신고</a>
+      <a href="#" class="close-menu btn btn-full bg-dark-dark font-13 btn-m font-600 mt-3 rounded-s">취소</a>
+    </div>
+  </div>
+</body>
+<script>
+  var products = []
+  var MACTIME = '<%=MACTIME.MATLEV%>'
+  var NEXTMAT = '<%=MACTIME.NEXTMAT%>'
+  var S_ALLCNT = '<%=MACTIME.S_ALLCNT%>'
+  var serverTime;
+  var MACHING = []
+  $(document).ready(() => {
+    reqApi({
+      URL: 'getBalances',
+      PARAM: {
+        TIME: "plz"
+      }
+    }).then((data) => {
+      $("#toggle-id-3").prop("checked", (data.BALANCES.CFG_AUTO == "1"))
+      MACTIME *= 1
+      serverTime = data.TIME
+      $("#FRM_RATE").css("width", data.BALANCES['FRM_RATE'] + "%");
+      data.BALANCES['FRM_RATE'] = data.BALANCES['FRM_RATE'] + " Complete"
+      commonLib.bindValue(data.BALANCES)
+      reqApiList({
+        URL: 'getMaching',
+      }).then((data) => {
+        MACHING = data.MACHING[0]
+        var machinHtml = '';
+        $("#MATCHINGCONTENT").empty()
+        for (var i = 0; i < MACHING.length; i++) {
+          machinHtml += '<tr class="bg-dark-light">';
+          machinHtml += '<th scope="row">' + MACHING[i].S_ALLCNT + '</th>';
+          machinHtml += '<td>' + MACHING[i].S_SHOUR + ':' + MACHING[i].S_SMINUTE + '</td>';
+          machinHtml += '<td>' + MACHING[i].S_EHOUR + ':' + MACHING[i].S_EMINUTE + '</td>';
+          if (MACHING[i].CUR_TIME == 'N') {
+            machinHtml += '<td><a class="btn btn-xxs rounded-xs text-uppercase font-900 shadow-s bg-dark-dark"><%=LANG["LANG154"][NUM]%></a></td>';
+          } else if (MACHING[i].CUR_TIME == 'W') {
+            machinHtml += '<td><a class="btn btn-xxs rounded-xs text-uppercase font-900 shadow-s bg-dark-dark"><%=LANG["LANG155"][NUM]%></a></td>';
+          } else {
+            machinHtml += '<td>';
+            machinHtml += '<div class="spinner-border color-blue-dark" role="status">';
+            machinHtml += '<span class="sr-only">Loading...</span>';
+            machinHtml += '</div>';
+            machinHtml += '</td>';
+          }
+          machinHtml += '</tr>';
+        }
+        commonLib.bindValue(MACHING[0])
+        $("#MATCHINGCONTENT").append(machinHtml)
+        reqApiList({
+          URL: 'getProducts',
+        }).then((data) => {
+          $("#PRODCONTENT").empty()
+          products = data.PRODUCTS[0]
+          var innerHTML = '';
+          var leftData;
+          var timeOBJ = {}
+          var now = new Date(serverTime)
+          if (MACTIME != -1) {
+            now.setHours("<%=MACTIME.EHOUR%>" * 1)
+            now.setMinutes("<%=MACTIME.EMINUT%>" * 1)
+          } else {
+            now.setHours(MACHING[((NEXTMAT * 1) - 1)].S_SHOUR * 1)
+            now.setMinutes(MACHING[((NEXTMAT * 1) - 1)].S_SMINUTE * 1)
+          }
+          now.setSeconds('0')
+          leftTime = (now.getTime() - new Date(serverTime).getTime())
+          leftData = commonLib.convertMS(leftTime)
+          setInterval(() => {
+            leftTime -= 1000
+            leftData = commonLib.convertMS(leftTime)
+            if (leftData.hour == "00" && leftData.minute == "00" && leftData.seconds == "00") {
+              // if (MACTIME == -1) {
+              //   setTimeout(() => {
+              //     location.reload()
+              //   }, 1000 * 60)
+              // } else {
+              // }
+              location.reload()
+            }
+            for (var i = 0; i < products.length; i++) {
+              timeOBJ['leftTime' + i] = leftData.hour + " : " + leftData.minute + " : " + leftData.seconds
+            }
+            commonLib.bindValue(timeOBJ)
+          }, 1000)
+          for (var i = 0; i < products.length; i++) {
+            if (MACTIME == -1) {
+              var nextIndex = ((NEXTMAT * 1) - 1)
+              innerHTML += '<h5 class="mb-0">Round :' + S_ALLCNT + ' </h5>';
+              innerHTML += '<p class="mb-0">Today : ' + NEXTMAT + '</p>';
+              innerHTML += '<div class="d-flex mb-3" data-menu="menu-cart-item">';
+              innerHTML += '<div class="ml-auto">';
+              innerHTML += '<img src="images/goldenegg' + products[i].P_CODE.replace('0000', '') + '.png" width="100" class="rounded-s">';
+              innerHTML += '</div>';
+              innerHTML += '<div class="w-100 pl-3">';
+              innerHTML += '<p class="color-highlight font-600 mb-1">' + products[i].P_NAME + ' <span class="badge badge-pill bg-red-dark font-11 float-right"><%=LANG["LANG156"][NUM]%> : ' + products[i].CNT + '</span></p>';
+              innerHTML += '<h5 class="text-center"><%=LANG["LANG133"][NUM]%><br><%=LANG["LANG134"][NUM]%></h5>';
+              innerHTML += '<a><h6 class="mt-2 text-center">Next time : ' + MACHING[nextIndex].S_SHOUR + ':' + MACHING[nextIndex].S_SMINUTE + '</h6></a>';
+              innerHTML += '</div>';
+              innerHTML += '</div>';
+            } else {
+              innerHTML += '<h5 class="mb-0">Round : ' + S_ALLCNT + '</h5>';
+              innerHTML += '<p class="mb-0">Today : ' + (MACTIME + 1) + '</p>';
+              innerHTML += '<div class="d-flex mb-3" data-menu="menu-cart-item" onclick="selectedAgg(' + i + ')">';
+              innerHTML += '<div class="ml-auto">';
+              innerHTML += '<img src="images/goldenegg' + products[i].P_CODE.replace('0000', '') + '.png" width="100" class="rounded-s">';
+              innerHTML += '</div>';
+              innerHTML += '<div class="w-100 pl-3">';
+              innerHTML += '<p class="color-highlight font-600 mb-1">' + products[i].P_NAME
+              innerHTML += (products[i].CUR_YN == 'Y') ? '<span class="badge badge-pill bg-green-dark font-11 float-right"><%=LANG["LANG150"][NUM]%></span></p>' :
+                '<span class="badge badge-pill bg-red-dark font-11 float-right"><%=LANG["LANG151"][NUM]%></span></p>';
+              innerHTML += '<h4>$ ' + products[i].G_PRICE1 + ' ~ $ ' + products[i].G_PRICE2 + '</h4>';
+              innerHTML += '<a>';
+              innerHTML += (MACTIME != -1) ? '<h4 class="mt-2 text-center"><%=LANG["LANG152"][NUM]%> : <data-tag id="leftTime' + i + '"></data-tag></h4>' : '';
+              innerHTML += '</a>';
+              innerHTML += '</div>';
+              innerHTML += '</div>';
+              if (MACTIME != -1) timeOBJ['leftTime' + i] = leftData.hour + " : " + leftData.minute + " : " + leftData.seconds
+            }
+            innerHTML += (i != products.length) ? '<div class="divider mb-3"></div>' : '';
+          }
+          $("#PRODCONTENT").append(innerHTML)
+          commonLib.bindValue(timeOBJ)
+        })
+      })
+
+    })
+  })
+
+  function selectedAgg(val) {
+    commonLib.bindValue(products[val])
+  }
+
+  async function setAuto(btn) {
+    var r = await reqApi({
+      URL: 'changeAUTO',
+    })
+    $("#toggle-id-3").prop("checked", (r.CHAUTO.CFG_AUTO == "1"))
+    if (r.CHAUTO.REJULT == 1) {
+      openPop("WR", "<%=LANG['LANG153'][NUM]%>")
+    } else if (r.CHAUTO.REJULT == 2) {
+      openPop("WRF")
+    }
+  }
+</script>

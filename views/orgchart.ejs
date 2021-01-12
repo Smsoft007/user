@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<%- include('head') %>
+
+<body class="theme-dark">
+  <div id="preloader">
+    <div class="spinner-border color-highlight" role="status"></div>
+  </div>
+  <div id="page">
+    <%- include('appHeader') %>
+    <div class="page-title-clear"></div>
+    <div class="page-content">
+      <iframe src='https://orgchart.sm-international.biz/koiorgchrt?userId=<%=MY_INFO.D_UID%>&server=gold&lev=0&step=1' type="application/pdf" class="myIfram" width="100%" frameborder="0" style="position:relative;zindex:999" ref="frame">
+      </iframe>
+    </div>
+  </div>
+</body>
